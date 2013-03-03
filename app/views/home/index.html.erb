@@ -1,53 +1,18 @@
-<h1>Jamstagram</h1>
-	 <div class="tracksearch">
-          <input class="typeahead" type="text" placeholder="find a track">
-     </div>
-     <div class="example example-films">
-        <h2 class="example-name">Best Picture Winners</h2>
-        <p class="example-description">Prefetches some data then relies on remote requests for suggestions  when prefetched data is insufficient</p>
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<h1>Jamstagram</h1>
+		</div>
+		<div class="span6 offset6">
+			 <div class="tracksearch" id="find-track">
+		          <input class="typeahead" type="text" placeholder="search to add a track">
+		     </div>
+		     <div class="progress" style="display:none;">Loading</div>
+			<h3>Results:</h3>
+			<ol id="results">
+			</ol>
+		</div>
+	</div>
+</div>
 
-        <div class="demo">
-          <input class="typeahead" type="text" placeholder="best picture winners">
-        </div>
-     </div>
-	<ul id="results" style="margin-top:500px;">
-	</ul>
-<script type="text/javascript">
-$(document).ready(function() {
-    
-    $.ajax({
-        type: "GET",
-        url: "/search",
-        dataType: "json",
-        data: {
-            'query' : 'We Are Never Ever'
-        },
-        success: function(results){
-        	$('#results').empty();
-            $.each(results, function() {
-            	$('#results').append('<li>' + this.name + '</li>');
-            });
-        }
-    });
-    $('.tracksearch .typeahead').typeahead([
-    {
-      name: 'find-a-track',
-      remote: '/search?query=%QUERY',
-      template: '<img src="{{icon}}" width="100" height="100"><p><strong>{{name}}</strong> {{canTether}}</p>',
-      limit: 5,
-      engine: Hogan
-    }
-    ]);
-    $('.example-films .typeahead').typeahead([
-    {
-      name: 'best-picture-winners',
-      prefetch: '/post_1960.json',
-      template: '<p><strong>{{value}}</strong> â€“ {{year}}</p>',
-      engine: Hogan
-    }
-  ]);
-    
-    
-});
-</script>
 
