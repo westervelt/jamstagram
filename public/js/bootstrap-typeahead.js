@@ -12,9 +12,11 @@
 function ($) {
 
   'use strict';
+  var timer = undefined;
   var _defaults = {
       source: [],
       maxResults: 8,
+      timeout: 500,
       minLength: 1,
       menu: '<ul class="typeahead dropdown-menu"></ul>',
       item: '<li><a href="#"></a></li>',
@@ -39,6 +41,7 @@ function ($) {
       this.highlighter = this.options.highlighter || this.highlighter;
       this.shown = false;
       this.initSource();
+      this.timeout = this.options.timeout || 500;
       this.listen();
     }
 
@@ -253,6 +256,11 @@ function ($) {
           case _keyCodes.UP:
              break;
           case _keyCodes.TAB:
+          	var that = this
+            e.stopPropagation();
+            e.preventDefault();
+            setTimeout(function () { that.hide() }, 150);
+            break;
           case _keyCodes.ENTER:
             if (!this.shown) return;
             this.select();
@@ -261,7 +269,9 @@ function ($) {
             this.hide();
             break;
           default:
-            this.lookup();
+          	if (this.timer) clearTimeout(this.timer);
+            var self = this;
+            this.timer = setTimeout(function () { self.lookup(); }, this.timeout);	
         }
       },
 
