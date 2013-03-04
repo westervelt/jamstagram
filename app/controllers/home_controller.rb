@@ -27,7 +27,7 @@ class HomeController < ApplicationController
   	else
   		query = 'Wilco'
   	end
-  	@results = rdio.call('search', {"types" => "Track", "query" => query})['result']['results']
+  	@results = rdio.call('search', {"types" => "Track", "query" => query, "count" => 8})['result']['results']
   	
   	respond_to do |format|
       format.html # search.html.erb

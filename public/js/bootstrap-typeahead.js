@@ -12,7 +12,6 @@
 function ($) {
 
   'use strict';
-
   var _defaults = {
       source: [],
       maxResults: 8,
@@ -71,7 +70,8 @@ function ($) {
 
         return isSupported;
       },
-
+      
+      
       lookup: function (event) {
         var that = this,
             items;
@@ -230,6 +230,8 @@ function ($) {
           this.$element
             .on('blur', $.proxy(this.blur, this))
             .on('keyup', $.proxy(this.keyup, this));
+            
+            
 
           if (this.eventSupported('keydown')) {
             this.$element.on('keydown', $.proxy(this.keypress, this));
@@ -338,3 +340,5 @@ function ($) {
     })
   });
 } (window.jQuery);
+
+
